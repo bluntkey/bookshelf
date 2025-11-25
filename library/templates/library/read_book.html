@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reading: {{ book.title }}</title>
+    <style>
+        body { margin: 0; padding: 0; background-color: #121212; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        
+        /* The Top Bar (Navigation) */
+        .reader-nav {
+            background-color: #000000;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 50px;
+            border-bottom: 1px solid #333;
+        }
+
+        .book-info { font-family: sans-serif; font-weight: bold; }
+        .author-info { color: #b3b3b3; font-weight: normal; margin-left: 10px; }
+
+        .close-btn {
+            text-decoration: none;
+            color: #b3b3b3;
+            font-family: sans-serif;
+            font-weight: bold;
+            padding: 5px 10px;
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
+        .close-btn:hover { color: white; border-color: white; }
+
+        /* The PDF Container */
+        .pdf-container {
+            flex-grow: 1; /* Takes up all remaining space */
+            width: 100%;
+            background-color: #333;
+        }
+        
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="reader-nav">
+        <div class="book-info">
+            {{ book.title }} <span class="author-info">by {{ book.author }}</span>
+        </div>
+        <a href="{% url 'book_detail' book.id %}" class="close-btn">✕ Close Book</a>
+    </div>
+
+    <div class="pdf-container">
+        <iframe src="{{ book.pdf_file.url }}#toolbar=0" type="application/pdf"></iframe>
+    </div>
+
+</body>
+</html>

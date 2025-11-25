@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ book.title }}</title>
+    <style>
+        body { background-color: #121212; color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background-color: #181818; padding: 40px; border-radius: 10px; text-align: center; width: 400px; }
+        h1 { color: #1db954; margin-bottom: 10px; }
+        h2 { color: #b3b3b3; font-size: 18px; margin-top: 0; }
+        .price { font-size: 24px; margin: 20px 0; display: block; }
+        
+        .btn { background-color: #1db954; color: black; padding: 15px 30px; text-decoration: none; border-radius: 30px; font-weight: bold; display: inline-block; cursor: pointer; }
+        .btn:hover { background-color: #1ed760; }
+        
+        /* New Button Style for External Links (Blue) */
+        .btn-external { background-color: #2e77d0; color: white; padding: 15px 30px; text-decoration: none; border-radius: 30px; font-weight: bold; display: inline-block; cursor: pointer; }
+        .btn-external:hover { background-color: #408bea; }
+
+        .btn-disabled { background-color: #535353; color: #b3b3b3; padding: 15px 30px; text-decoration: none; border-radius: 30px; font-weight: bold; display: inline-block; cursor: not-allowed; }
+        
+        .fav-link { display: inline-block; margin-top: 20px; color: #b3b3b3; text-decoration: none; font-size: 14px; }
+        .fav-link:hover { color: white; }
+
+        .back-link { display: block; margin-top: 20px; color: #b3b3b3; text-decoration: none; font-size: 12px; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>{{ book.title }}</h1>
+        <h2>{{ book.author }}</h2>
+        <span class="price">${{ book.price }}</span>
+        
+        {% if book.pdf_file %}
+            <a href="{% url 'read_book' book.id %}" class="btn">Read Now</a>
+            
+        {% elif book.external_link %}
+            <a href="{{ book.external_link }}" class="btn-external" target="_blank">Read at Source ↗</a>
+            
+        {% else %}
+            <span class="btn-disabled">Not Available</span>
+        {% endif %}
+        
+        <br>
+
+        <a href="{% url 'add_to_library' book.id %}" class="fav-link">
+            {% if request.user in book.favorites.all %}
+                ♥ Remove from My Library
+            {% else %}
+                ♡ Add to My Library
+            {% endif %}
+        </a>
+        
+        <a href="{% url 'home' %}" class="back-link">← Back to DigitalLibrary</a>
+    </div>
+
+</body>
+</html>
