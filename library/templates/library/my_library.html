@@ -52,10 +52,10 @@
                     <a href="{% url 'book_detail' book.id %}" class="card-link">
                         <div class="book-card">
                             {% if book.cover_image %}
-                                <img src="{{ book.cover_image.url }}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 5px; margin-bottom: 10px;">
-                            {% else %}
-                                <div style="width: 100%; height: 200px; background-color: #333; border-radius: 5px; margin-bottom: 10px;"></div>
-                            {% endif %}
+                                    <img src="{{ book.cover_image.url }}" style="width: 100%; aspect-ratio: 2/3; object-fit: cover; border-radius: 5px; margin-bottom: 10px;">
+                                {% else %}
+                                    <div style="width: 100%; aspect-ratio: 2/3; background-color: #333; border-radius: 5px; margin-bottom: 10px;"></div>
+                                {% endif %}
 
                             <span class="book-title">{{ book.title }}</span>
                             <span class="book-author">{{ book.author }}</span>
